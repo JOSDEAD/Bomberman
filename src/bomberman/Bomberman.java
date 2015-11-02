@@ -22,9 +22,9 @@ import javax.swing.JFrame;
 public class Bomberman extends Canvas implements Runnable {
 
 
-    public static int width=300;
-    public static int height=width/16*9;
-    public static int scale=3;
+    public static int width=375;
+    public static int height=width;
+    public static int scale=2;
     
     private Thread thread;
     private final Screen screen;
@@ -56,11 +56,34 @@ public class Bomberman extends Canvas implements Runnable {
 
     @Override
     public void run() {
+        
+        long Time= System.nanoTime();
+        long timer=System.currentTimeMillis();
+        double nanoSecond= 1000000000.0 / 60.0;
+        double delta=0;
+        int frames=0;
+        int updates=0;
         while(running){
-            //Run the logic of the game
-            update();
+            long now= System.nanoTime();
+            delta+= (now - Time)/nanoSecond;
+            Time=now;
+            
+            //Just Update  60 times in a second
+            while(delta>=1){
+                //Run the logic of the game
+                update();
+                updates++;
+                delta--;
+            }
             //Run the graphics of the game
-            render();
+            render(); 
+            frames++;
+            if(System.currentTimeMillis() - timer>1000){
+                timer+=1000;
+                frame.setTitle("Bomberman  | "+updates+"ups | "+frames+ "fps");
+                frames=0;
+                updates=0;
+            }
         }
     }
     public static void main(String[] args){
@@ -83,11 +106,17 @@ public class Bomberman extends Canvas implements Runnable {
             createBufferStrategy(3);
             return;
         }
+        screen.clear();
+        screen.render();
+        
+        for(int i=0;i<pixels.length;i++){
+            pixels[i]=screen.pixels[i];
+        }
         
         Graphics g= bs.getDrawGraphics();
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, width*scale, height*scale);
+
         //clean the screen
+        g.drawImage(image, 0, 0, getWidth(),getHeight(),null);
         g.dispose();
         
         //showw the next buffer screen
