@@ -18,10 +18,13 @@ public class SpriteSheet {
     public final int size;
     public int[] pixels;
 
+    public static SpriteSheet tiles= new SpriteSheet("/textures/spriteSheet.png",300);
+    
     public SpriteSheet(String path, int size) {
         this.path = path;
         this.size = size;
         pixels = new int [size*size];
+        loadImage();
     }
     
     public void loadImage(){

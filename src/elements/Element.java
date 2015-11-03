@@ -12,12 +12,14 @@ import bomberman.graphics.SpriteSheet;
  * @author jomi_
  */
 public class Element {
-    private final int SIZE;
+    public final int SIZE;
     private int x;
     private int y;
     public int[] pixels;
     private SpriteSheet sheet;
 
+    public static Element emptySpace= new Element(60,0,0,SpriteSheet.tiles);
+    
     public Element(int SIZE, int x, int y, SpriteSheet sheet) {
         this.SIZE = SIZE;
         this.x = x*SIZE;
@@ -28,9 +30,9 @@ public class Element {
     }
 
     private void load() {
-        for(int y=0; y<SIZE;y++){
-            for(int x=0; x<SIZE;x++){
-                pixels[x+y*SIZE]= sheet.pixels[(x+this.x+y+this.y*sheet.size)];
+        for(int y1=0; y1<SIZE;y1++){
+            for(int x1=0; x1<SIZE;x1++){
+                pixels[x1+y1*SIZE]= sheet.pixels[(x1+this.x)+(y1+this.y)*(sheet.size)];
             }
         }
     }

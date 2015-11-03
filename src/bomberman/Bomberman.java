@@ -22,7 +22,7 @@ import javax.swing.JFrame;
 public class Bomberman extends Canvas implements Runnable {
 
 
-    public static int width=375;
+    public static int width=300;
     public static int height=width;
     public static int scale=2;
     

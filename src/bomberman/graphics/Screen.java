@@ -5,6 +5,7 @@
  */
 package bomberman.graphics;
 
+import elements.Element;
 import java.util.Random;
 
 /**
@@ -37,8 +38,8 @@ public class Screen {
             if(y<0 ||y>=height)break;
             for(int x=0;x<width;x++){
                 if(x<0||x>=width)break;
-                int tileIndex=(int) ((x/25)+(y/25));
-                pixels[x+y*width]=titles[tileIndex];
+                int tileIndex=(int) ((x>>4)+(y>>4))*64;
+                pixels[x + y * width] = Element.emptySpace.pixels[(x%20)+(y%20)*Element.emptySpace.SIZE];
             }
         }
     }
