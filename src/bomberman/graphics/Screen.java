@@ -6,6 +6,7 @@
 package bomberman.graphics;
 
 import elements.Element;
+import elements.Tile;
 import java.util.Random;
 
 /**
@@ -13,7 +14,8 @@ import java.util.Random;
  * @author jomi_
  */
 public class Screen {
-    private int width,height;
+    public int width;
+    public int  height;
     public int[] pixels;
     public int MAP_SIZE=15;
     
@@ -32,16 +34,18 @@ public class Screen {
             pixels[i]=0;
         }
     }
-    public void render(){
-        
-        for(int y=0;y<height;y++){
-            if(y<0 ||y>=height)break;
-            for(int x=0;x<width;x++){
-                if(x<0||x>=width)break;
-                int tileIndex=(int) ((x>>4)+(y>>4))*64;
-                pixels[x + y * width] = Element.emptySpace.pixels[(x%20)+(y%20)*Element.emptySpace.SIZE];
-            }
-        }
-    }
+
+    public void renderTile(int xp,int yp,Tile tile){
+        for(int y = 0; y < tile.element.SIZE; y++) {
+			int ya = y + yp;
+			for(int x = 0; x < tile.element.SIZE; x++) {
+				int xa = x + xp;
+				if(xa < -tile.element.SIZE || xa >= width || ya < 0 || ya >= height) break; 
+				if(xa < 0) xa = 0;
+				int col = tile.element.pixels[x + y * tile.element.SIZE];
+				pixels[xa + ya * width] = col;
+			}
+		}
     
+    }
 }

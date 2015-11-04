@@ -14,6 +14,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
+import level.Level;
 
 /**
  *
@@ -22,9 +23,11 @@ import javax.swing.JFrame;
 public class Bomberman extends Canvas implements Runnable {
 
 
-    public static int width=300;
+    public static int width=390;
     public static int height=width;
     public static int scale=2;
+    
+    private Level level;
     
     private Thread thread;
     private final Screen screen;
@@ -38,6 +41,7 @@ public class Bomberman extends Canvas implements Runnable {
         setPreferredSize(size);
         screen= new Screen(width,height);
         frame= new JFrame();
+        level=new Level(15,15);
     }
     
     public synchronized void start() {
@@ -98,7 +102,8 @@ public class Bomberman extends Canvas implements Runnable {
         bomberman.frame.setVisible(true);
         bomberman.start();
     }
-
+    int x=0;
+    int y=0;
     public void render() {
         BufferStrategy bs= getBufferStrategy();
         //creat buffer when is empty
@@ -107,7 +112,7 @@ public class Bomberman extends Canvas implements Runnable {
             return;
         }
         screen.clear();
-        screen.render();
+        level.render(x, y, screen);
         
         for(int i=0;i<pixels.length;i++){
             pixels[i]=screen.pixels[i];
