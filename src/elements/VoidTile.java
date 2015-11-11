@@ -19,7 +19,7 @@ class VoidTile extends Tile {
     
     @Override
     public void render(int x,int y,Screen screen){
-        screen.renderTile(x*26, y*26, this);
+        screen.renderTile(x*20, y*20, this);
         
     }
     

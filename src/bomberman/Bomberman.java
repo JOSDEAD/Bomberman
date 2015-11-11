@@ -5,9 +5,9 @@
  */
 package bomberman;
 
+import Entity.mob.Player;
 import bomberman.graphics.Screen;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -23,11 +23,13 @@ import level.Level;
 public class Bomberman extends Canvas implements Runnable {
 
 
-    public static int width=390;
+    public static int width=300;
     public static int height=width;
-    public static int scale=2;
+    public static int scale=20;
     
     private Level level;
+    private Player player;
+    private Keyboard keyboard;        
     
     private Thread thread;
     private final Screen screen;
@@ -41,7 +43,10 @@ public class Bomberman extends Canvas implements Runnable {
         setPreferredSize(size);
         screen= new Screen(width,height);
         frame= new JFrame();
+        keyboard=new Keyboard();
+        player= new Player(keyboard);
         level=new Level(15,15);
+        addKeyListener(keyboard);
     }
     
     public synchronized void start() {
@@ -102,8 +107,7 @@ public class Bomberman extends Canvas implements Runnable {
         bomberman.frame.setVisible(true);
         bomberman.start();
     }
-    int x=0;
-    int y=0;
+    
     public void render() {
         BufferStrategy bs= getBufferStrategy();
         //creat buffer when is empty
@@ -112,7 +116,7 @@ public class Bomberman extends Canvas implements Runnable {
             return;
         }
         screen.clear();
-        level.render(x, y, screen);
+        level.render(screen);
         
         for(int i=0;i<pixels.length;i++){
             pixels[i]=screen.pixels[i];
@@ -122,12 +126,17 @@ public class Bomberman extends Canvas implements Runnable {
 
         //clean the screen
         g.drawImage(image, 0, 0, getWidth(),getHeight(),null);
+
+        //g.drawString("X: "+player.x+" Y: "+player.y, 200, 200);
         g.dispose();
         
         //showw the next buffer screen
         bs.show();
     }
     public void update(){
-    
+        keyboard.update();
+        player.update();
+        level.update();
+        
     }
 }

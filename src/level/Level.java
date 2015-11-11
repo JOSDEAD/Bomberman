@@ -73,13 +73,13 @@ public class Level {
    private void time(){
    }
    
-   public void render(int xScroll,int yScroll,Screen screen){
-       int x0= xScroll/26;
-       int x1=(screen.width)/26;
-       int y0=yScroll/26;
-       int y1= (screen.height)/26;
-       for(int y=y0;y<y1;y++){
-           for(int x=x0;x<x1;x++){
+   public void render(Screen screen){
+       
+       int x1=(screen.width)/20;
+       
+       int y1= (screen.height)/20;
+       for(int y=0;y<y1;y++){
+           for(int x=0;x<x1;x++){
                getTile(x,y).render(x, y, screen);
             }
        }

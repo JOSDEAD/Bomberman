@@ -18,10 +18,10 @@ public class Element {
     public int[] pixels;
     private SpriteSheet sheet;
 
-    public static Element emptySpace= new Element(26,1,0,SpriteSheet.tiles);
-    public static Element block= new Element(26,0,0,SpriteSheet.tiles);
-    public static Element block1= new Element(26,3,0,SpriteSheet.tiles);
-    public static Element voidTile = new Element(26,0);
+    public static Element emptySpace= new Element(20,1,0,SpriteSheet.tiles);
+    public static Element block= new Element(20,0,0,SpriteSheet.tiles);
+    public static Element block1= new Element(20,2,0,SpriteSheet.tiles);
+    public static Element voidTile = new Element(20,0);
     
     public Element(int SIZE, int x, int y, SpriteSheet sheet) {
         this.SIZE = SIZE;
